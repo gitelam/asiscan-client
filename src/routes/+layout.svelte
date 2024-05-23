@@ -2,6 +2,7 @@
   import { browser } from "$app/environment";
   import { onMount } from "svelte";
   import "bootstrap/dist/css/bootstrap.css";
+  import "bootstrap-icons/font/bootstrap-icons.css";
   
   onMount(async () => {
     if (!browser) return;

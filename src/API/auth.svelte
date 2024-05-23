@@ -2,12 +2,16 @@
     import {environment} from '$lib/environment'
 
     export async function signIn(email: string, password: string) {
+        const params = new URLSearchParams();
+        params.append('username', email);
+        params.append('password', password);
+        
         const response = await fetch(`${environment.API_URL}/users/sign_in`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/x-www-form-urlencoded',
             },
-            body: JSON.stringify({ email, password })
+            body: params
         });
 
         return response;

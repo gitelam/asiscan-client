@@ -3,7 +3,7 @@
   import { getProfileData } from '../../../API/user.svelte';
   import { goto } from '$app/navigation';
 	import Loading from '../../../lib/components/shared/loading.svelte';
-  import Toast from '../../../lib/components/shared/toast.svelte';
+  import toast, { Toaster } from 'svelte-french-toast';
   import { showLoading,hideLoading } from '../../../lib/stores/loading';
   import { showSuccessToast } from '../../../lib/stores/toast';
   import {setToken} from '../../../lib/modules/token';
@@ -22,7 +22,7 @@
       goto('/app/home');
     }else{
      hideLoading();
-      
+     toast.error('Credenciales incorrectas');
     }
   }
 
@@ -41,4 +41,4 @@
   </form>
 
 <Loading />
-<Toast />
+<Toaster />

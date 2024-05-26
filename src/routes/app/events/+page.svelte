@@ -1,19 +1,20 @@
-<script>
+<script lang="ts">
     import { onMount } from 'svelte';
     import Eventstable from '../../../lib/components/app/events/eventstable.svelte';
     import { showLoading,hideLoading } from '../../../lib/stores/loading';
     import { createEvent, getEvents } from '../../../API/events.svelte';
-    import toast, { Toaster } from 'svelte-french-toast';;
+    import toast, { Toaster } from 'svelte-french-toast';
+    
     /**
 	 * @type {string | Element }
 	 */
-    let modalManageEvents;
+    let modalManageEvents:any;
     /**
 	 * @type {string | Element }
 	 */
-    let modalCreateEvents;
+    let modalCreateEvents:any;
     let name = '';
-    let events = [];
+    let events: any[] | undefined = []
     async function showCreateEventModal() {
         const bootstrap = await import('bootstrap');
         // @ts-ignore
@@ -28,11 +29,19 @@
     }
 
     async function showManageEventModal() {
-       
+        loadEvents();
         const bootstrap = await import('bootstrap');
         // @ts-ignore
         const ManageEvents =  bootstrap.Modal.getOrCreateInstance(modalManageEvents);
         ManageEvents.show();
+    }
+
+    async function loadEvents() {
+        const response = await getEvents();
+        if(response.ok){
+            events = await response.json();
+            console.log(events);
+        }
     }
 
     async function hideManageEventModal() {
@@ -44,12 +53,24 @@
 
     async function saveEvent() {
         showLoading();
+        if(name === ''){
+            toast.error('El nombre del evento es requerido');
+            hideLoading();
+            return;
+        }
+
         const response = await createEvent(name);
-        hideLoading();
+        
         if(response.ok){
             hideCreateEventModal();
+            loadEvents();
+            name = '';
             toast.success('Evento creado correctamente');
+        }else{
+            toast.error('Error al crear el evento');
         }
+
+        hideLoading();
     }
 </script>
 <div class="page-header pt-3">
@@ -91,18 +112,20 @@
           <h5 class="modal-title" id="exampleModalLongTitle">Crear evento</h5>
           
         </div>
-        <div class="modal-body">
-            <form>
-                <div class="mb-3">
-                    <label for="email" class="form-label">Nombre del evento</label>
-                    <input type="text" class="form-control" id="name" aria-describedby="emailHelp" bind:value={name}>
-                  </div>
-              </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal" on:click={hideCreateEventModal}>Cerrar</button>
-          <button type="button" class="btn btn-success" on:click={saveEvent}>Guardar</button>
-        </div>
+        <form>
+            <div class="modal-body">
+                
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Nombre del evento</label>
+                        <input type="text" class="form-control" id="name" aria-describedby="emailHelp" bind:value={name}>
+                    </div>
+                
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal" on:click={hideCreateEventModal}>Cerrar</button>
+            <button type="submit" class="btn btn-success" on:click={saveEvent}>Guardar</button>
+            </div>
+        </form>
       </div>
     </div>
 </div>
@@ -115,7 +138,7 @@
           
         </div>
         <div class="modal-body">
-            <Eventstable />
+            <Eventstable events={events}/>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal" on:click={hideManageEventModal}>Cerrar</button>

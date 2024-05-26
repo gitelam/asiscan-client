@@ -2,7 +2,35 @@
     import { user } from "../../../../lib/stores/user";
     import { removeToken } from "$lib/modules/token";
     import { goto } from "$app/navigation";
+    import { onMount } from "svelte";
+    import { getProfileData } from "../../../../API/user.svelte";
+    import { setUserName } from "../../../../lib/stores/user";
+    import { getToken } from "$lib/modules/token";
 
+    onMount(async () => {
+        
+        if (getToken()) {
+            const response = await getProfileData();
+            if(response.ok){
+                const data = await response.json();
+                if(data.rol !== "Administrador"){
+                    removeUsersPageButton();
+                }
+                setUserName(`${data.firstName} ${data.middleName} ${data.lastName}`);
+            }
+            goto('/app/home');
+        }
+        else{
+            goto('/auth/signIn');
+        }
+    });
+    
+    function removeUsersPageButton(){
+        const usersPageButton = document.getElementById('usersPageButton');
+        if(usersPageButton){
+            usersPageButton.remove();
+        }
+    }
     function logout() {
         removeToken();
         user.set('');
@@ -14,7 +42,8 @@
   <div id="sidebar-nav" class="list-group border-0 rounded-0 text-sm-start min-vh-100">
       <a href="/app/home" class="list-group-item border-end-0 d-inline-block text-truncate" data-bs-parent="#sidebar"><i class="bi bi-house"></i> <span>Inicio</span> </a>
       <a href="/app/events" class="list-group-item border-end-0 d-inline-block text-truncate" data-bs-parent="#sidebar"><i class="bi bi-list-stars"></i> <span>Eventos</span></a>
-      <a href="/app/users" class="list-group-item border-end-0 d-inline-block text-truncate" data-bs-parent="#sidebar"><i class="bi bi-people"></i> <span>Usuarios</span></a>
+      <a href="/app/users" class="list-group-item border-end-0 d-inline-block text-truncate" id="usersPageButton" data-bs-parent="#sidebar"><i class="bi bi-people"></i> <span>Usuarios</span></a>
+      <a href="/app/students" class="list-group-item border-end-0 d-inline-block text-truncate" id="usersPageButton" data-bs-parent="#sidebar"><i class="bi bi-people"></i> <span>Estudiantes</span></a>
       <div class="dropdown p-1">
         <a href="#" class="d-flex align-items-center text-black text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
             

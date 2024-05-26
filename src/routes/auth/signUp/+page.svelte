@@ -1,8 +1,9 @@
-<script>
+<script lang="ts">
   import { onMount } from 'svelte';
   import { getCareers } from '../../../API/careers.svelte';
   import { signUp } from '../../../API/auth.svelte';
-  let careersList = [];
+  import toast, { Toaster } from 'svelte-french-toast';
+  let careersList:any[] = [];
 
   let data = {
     firstName: '',
@@ -40,7 +41,7 @@
       </div>
       <div class="col">
         <label for="middle-name" class="form-label text-muted">Apellido Paterno</label>
-        <input type="text" class="form-control" id="middle-name" placeholder="Doe" bind:value={data.middleName}>
+        <input type="text" class="form-control" id="middle-name" placeholder="Doe" required bind:value={data.middleName}>
       </div>
     </div>
     <div class="mb-3">
@@ -66,3 +67,5 @@
     </div>
     <button type="submit" class="btn btn-primary w-100" on:click={signUpUser}>Crear Cuenta</button>
 </form>
+
+<Toaster/>

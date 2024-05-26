@@ -1,30 +1,51 @@
 <script lang="ts">
     import { DataHandler, Datatable, Th, ThFilter } from '@vincjo/datatables'
-    import { onMount } from 'svelte';
-    import { getEvents } from '../../../../API/events.svelte';
-    
-    
-    let events: any[] | undefined = [];
+    import { onMount,afterUpdate } from 'svelte';
+    import toast, { Toaster } from 'svelte-french-toast';
+    import { goto } from '$app/navigation';
+    export let events: any[]  = [];
     let handler = new DataHandler(events,{rowsPerPage: 5});
     let rows = handler.getRows();
     let selected = handler.getSelected();
     let isAllSelected = handler.isAllSelected();
+   
+    afterUpdate(()=>{
+        handler.setRows(events);
+        rows = handler.getRows();
+    })
+   
+    function goToEventDetail(){
+        goToOrAlert(`/app/events/`)
+    }
 
-    onMount(async () => {
-        const response = await getEvents();
-        if(response.ok){
-            events = await response.json();
-            console.log(events )
-            handler = new DataHandler(events,{rowsPerPage: 5});
-            rows = handler.getRows();
+    function goToRegisterAssistances(){
+        goToOrAlert('/app/events/assistances/');
+    }
+
+    function goToOrAlert(URL:string){
+        let eventsIDList:number[] = [];
+        selected.subscribe(value => {
+            eventsIDList =  value;
+        });
+        
+        if(eventsIDList.length == 1){
+            goto(`${URL}${eventsIDList[0]}`);
         }
-    });
+        else if(eventsIDList.length == 0){
+            toast.error('Seleccione un evento');
+        }
+        else {
+            toast.error('Seleccione un solo evento');
+        }
+    }
 </script>
 <div class="page-header pt-3">
-    <h5>Acciones</h5>
+    <h5 class="text-right">Acciones</h5>
     <div class="d-flex flex-row-reverse ">
-        <button class="btn btn-primary btn-sm mx-1" >Editar evento</button>
-        <button class="btn btn-danger btn-sm" >Eliminar evento</button>
+        <button class="btn btn-primary btn-sm mx-1">Editar evento</button>
+        <button class="btn btn-primary btn-sm mx-1" on:click={goToRegisterAssistances}>Registrar asistencias</button>
+        <button class="btn btn-danger btn-sm mx-1" >Eliminar evento</button>
+        <button class="btn btn-primary btn-sm mx-1" on:click={goToEventDetail}>Ver evento</button>
     </div>
 
 </div>
@@ -33,14 +54,10 @@
         <thead>
             <tr>
                 <th class="selection">
-                    <input
-                        type="checkbox"
-                        on:click={() => handler.selectAll({ selectBy: 'ID' })}
-                        checked={$isAllSelected}
-                    />
+                    
                 </th>
                 <Th {handler} orderBy="name">Nombre del evento</Th>
-                <Th {handler} orderBy="user">Nombre del creador</Th>
+                <Th {handler} orderBy="user">Nombre del organizador</Th>
                 <Th {handler} orderBy="createdAt">Fecha de creación</Th>
             </tr>
             

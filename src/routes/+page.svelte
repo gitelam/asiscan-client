@@ -6,15 +6,9 @@
     import { goto } from "$app/navigation";
 
     onMount(async () => {
-        if (getToken()) {
-            const response = await getProfileData();
-            if(response.ok){
-                const data = await response.json();
-                setUserName(`${data.firstName} ${data.middleName} ${data.lastName}`);
-            }
+        if(getToken()){
             goto('/app/home');
-        }
-        else{
+        }else{
             goto('/auth/signIn');
         }
         

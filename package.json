@@ -41,9 +41,9 @@
 	"type": "module",
 	"dependencies": {
 		"bootstrap": "^5.3.3",
+		"@formkit/auto-animate": "^0.8.2",
 		"bootstrap-icons": "^1.11.3",
-		"less": "^4.2.0",
-		"less-loader": "^12.2.0",
+		"qr-scanner": "^1.4.2",
 		"svelte-bootstrap-icons": "^3.1.1",
 		"svelte-french-toast": "^1.2.0"
 	}

@@ -2,8 +2,8 @@
   
 import { browser } from "$app/environment";
 import { onMount } from "svelte";
-// import "bootstrap/dist/css/bootstrap.css";
-
+import Navbar from "$lib/components/auth/navbar.svelte";
+import "bootstrap/dist/css/bootstrap.css";
 
 onMount(async () => {
   if (!browser) return;

@@ -1,12 +1,15 @@
 <script lang="ts">
   import { browser } from "$app/environment";
   import { onMount } from "svelte";
-  import "bootstrap/dist/css/bootstrap.css";
+  // import "bootstrap/dist/css/bootstrap.css";
   import "bootstrap-icons/font/bootstrap-icons.css";
   
+    
+
   onMount(async () => {
     if (!browser) return;
-  
+
+    await import("../main.scss");
     // this is enough for most components
     await import("bootstrap");
   
@@ -19,5 +22,6 @@
   <svelte:head>
     <title>Asiscan</title>
   </svelte:head>
+  
   <slot></slot>
   

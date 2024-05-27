@@ -7,6 +7,9 @@
   import { showLoading,hideLoading } from '../../../lib/stores/loading';
   import { showSuccessToast } from '../../../lib/stores/toast';
   import {setToken} from '../../../lib/modules/token';
+
+  // import "../../../main.scss"
+  
   let email = '';
   let password = '';
  
@@ -27,6 +30,7 @@
   }
 
 </script>
+
   <form>
     <div class="mb-3">
       <label for="email" class="form-label">Correo Electronico</label>

@@ -5,7 +5,10 @@
     import { getToken } from "$lib/modules/token";
     import { goto } from "$app/navigation";
 
+  
+
     onMount(async () => {
+        await import("../main.scss");
         if (getToken()) {
             const response = await getProfileData();
             if(response.ok){

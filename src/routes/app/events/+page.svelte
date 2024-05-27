@@ -52,11 +52,12 @@
         }
     }
 </script>
-<div class="page-header pt-3">
-    <h2>Eventos</h2>
-</div>
+
+
+<h2>Eventos</h2>
 <p class="lead">Modulo para la gestión de eventos</p>
 <hr>
+
 <div class="row">
     <div class="col-md-6">
         <div class="card">
@@ -82,6 +83,7 @@
             </div>
         </div>
     </div>
+    
 </div>
 
 <div class="modal fade" id="createEvent" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" bind:this={modalCreateEvents}>

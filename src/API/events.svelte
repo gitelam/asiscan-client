@@ -30,4 +30,64 @@
         return response;
     }
 
+    export async function deleteEvent(id:number){
+       
+        const response = await fetch(`${environment.API_URL}/events/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        return response;
+    }
+
+    export async function editEvent(id:number,name:string){
+       
+        const response = await fetch(`${environment.API_URL}/events/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({name})
+        });
+
+        return response;
+    }
+
+    export async function getEvent(id:number){
+       
+        const response = await fetch(`${environment.API_URL}/events/detail/${id}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        return response;
+    }
+
+    export async function getEventData(id:string){
+       
+        const response = await fetch(`${environment.API_URL}/events/${id}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        return response;
+    }
+
+    export async function getEventExcel(id:string,quantity:number){
+       
+        const response = await fetch(`${environment.API_URL}/events/download_report/${id}/${quantity}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        return response;
+    }
 </script>

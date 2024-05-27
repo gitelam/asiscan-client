@@ -28,6 +28,8 @@
         CreateEvents.hide();
     }
 
+    
+
     async function showManageEventModal() {
         loadEvents();
         const bootstrap = await import('bootstrap');
@@ -40,7 +42,7 @@
         const response = await getEvents();
         if(response.ok){
             events = await response.json();
-            console.log(events);
+            
         }
     }
 

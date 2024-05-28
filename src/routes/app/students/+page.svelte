@@ -2,7 +2,7 @@
 
 </script>
 
-<div class="page-header pt-3">
+<div class="page-header">
     <h2>Estudiantes</h2>
 </div>
 <p class="lead">Modulo para la gestión de estudiantes</p>

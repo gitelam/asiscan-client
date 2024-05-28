@@ -1,4 +1,4 @@
-<nav class="navbar  navbar-light bg-light border-bottom w-100 px-2">
+<nav class="navbar fixed-top top-0 navbar-light bg-light border-bottom w-100 px-2">
 
 
 	<span class="navbar-brand d-flex gap-2 align-items-center">

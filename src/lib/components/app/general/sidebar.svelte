@@ -38,9 +38,9 @@
     }
 </script>
 
-<div id="sidebar" class="collapse collapse-horizontal show border-end position-fixed top-0 bottom-0 start-0 min-vh-100 " style="width: 120px;">
+<div id="sidebar" class="collapse collapse-horizontal show border-end position-fixed top-0 bottom-0 start-0 min-vh-100 " >
     <div id="sidebar-nav" class="list-group border-0 rounded-0 text-sm-start " style="margin-top: 100px;">
-        <a href="/app/home" class="list-group-item border-end-0 d-inline-block text-truncate" data-bs-parent="#sidebar"><i class="bi bi-house"></i> <span>Inicio</span> </a>
+        <a href="/app/home" class="list-group-item border-end-0 border-top-0 d-inline-block text-truncate" data-bs-parent="#sidebar"><i class="bi bi-house"></i> <span>Inicio</span> </a>
         <a href="/app/events" class="list-group-item border-end-0 d-inline-block text-truncate" data-bs-parent="#sidebar"><i class="bi bi-list-stars"></i> <span>Eventos</span></a>
         <a href="/app/users" class="list-group-item border-end-0 d-inline-block text-truncate" id="usersPageButton" data-bs-parent="#sidebar"><i class="bi bi-people"></i> <span>Usuarios</span></a>
         <a href="/app/students" class="list-group-item border-end-0 d-inline-block text-truncate" id="usersPageButton" data-bs-parent="#sidebar"><i class="bi bi-people"></i> <span>Estudiantes</span></a>
